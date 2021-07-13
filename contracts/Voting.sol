@@ -1,4 +1,4 @@
-pragma solidity ^0.8.6;
+pragma solidity ^0.5.16;
 
 contract Voting{
     bytes32[] public candidateList;
