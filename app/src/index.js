@@ -41,6 +41,19 @@ const App = {
       $("#" + candidates[name]).html(count);
     }
   },
+
+  voteForCandidate: async function() {
+    let candidateName = $('#candidate').val();
+    $("#msg").html("Vote has been submitted. The vote count will increment as soon as the vote is recorded on the blockchain. Please wait.")
+    $("#candidate").val("");
+
+    const { totalVotesFor, voteForCandidate } = this.voting.methods;
+    await voteForCandidate(this.web3.utils.asciiToHex(candidateName)).send({gas: 140000, from: this.account});
+    let div_id = candidates[candidateName];
+    var count = await totalVotesFor(this.web3.utils.asciiToHex(candidateName)).call();
+    $("#" + div_id).html(count);
+    $("#msg").html("");
+  }
 };
 
 window.App = App;
